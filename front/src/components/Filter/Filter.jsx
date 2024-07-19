@@ -24,7 +24,6 @@ export default function Filter() {
         dispatch(setOnlyFavoriteFilter())
     }
 
-    console.log(authorFilter);
     return (
         <div className='app-block filter'>
             <div className="filter-row">
