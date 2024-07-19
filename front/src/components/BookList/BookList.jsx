@@ -2,13 +2,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import './BookList.css'
 import { deleteBook, toggleFavorite } from '../../redux/books/actionCreators'
 import { BsBookmarkStar, BsBookmarkStarFill } from 'react-icons/bs'
-import { selectAuthorFilter, selectTitleFilter } from '../../redux/slices/filterSlice'
+import { selectAuthorFilter, selectOnlyFavoriteFilter, selectTitleFilter } from '../../redux/slices/filterSlice'
 
 
 export default function BookList() {
     const books = useSelector((state) => state.books)
     const titleFilter = useSelector(selectTitleFilter)
     const authorFilter = useSelector(selectAuthorFilter)
+    const onlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter)
 
 
     const dispatch = useDispatch()
@@ -24,7 +25,8 @@ export default function BookList() {
     const filteredBooks = books.filter((book) => {
         const matchesTitle = book.title.toLowerCase().includes(titleFilter.toLowerCase())
         const matchesAuthor = book.author.toLowerCase().includes(authorFilter.toLowerCase())
-        return matchesTitle && matchesAuthor
+        const matchesFavorite = onlyFavoriteFilter ? book.isFavorite : true
+        return matchesTitle && matchesAuthor && matchesFavorite
     })
     return (
         <div className='app-block book-list'>
