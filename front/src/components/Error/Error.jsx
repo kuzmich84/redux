@@ -10,7 +10,7 @@ export default function Error() {
 
   useEffect(() => {
     if (errorMessage) {
-      toast.info(errorMessage)
+      toast.error(errorMessage)
       dispatch(clearError())
     }
   }, [errorMessage, dispatch])
