@@ -4,6 +4,7 @@ import { addBook, fetchBook } from '../../redux/slices/booksSlice'
 import booksData from '../../data/books.json'
 import './BookForm.css'
 import createBookWithID from '../../utils/createBookWithID';
+import { setError } from '../../redux/slices/errorSlice'
 
 
 export default function BookForm() {
@@ -21,6 +22,8 @@ export default function BookForm() {
             dispatch(addBook(book))
             setTitle('')
             setAuthor('')
+        } else {
+            dispatch(setError('You must fill title and author'))
         }
     }
 
