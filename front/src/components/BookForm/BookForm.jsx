@@ -16,7 +16,7 @@ export default function BookForm() {
         e.preventDefault()
         if (title && author) {
 
-            const book = createBookWithID({ title, author })
+            const book = createBookWithID({ title, author }, 'manual')
 
             dispatch(addBook(book))
             setTitle('')
@@ -27,7 +27,7 @@ export default function BookForm() {
     const handleAddRandomBook = () => {
         const randomIndex = Math.floor(Math.random() * booksData.length)
         const randomBook = booksData[randomIndex]
-        const randomBookWithId = createBookWithID(randomBook)
+        const randomBookWithId = createBookWithID(randomBook, 'random')
         dispatch(addBook(randomBookWithId))
     }
 
@@ -35,7 +35,7 @@ export default function BookForm() {
         try {
             const res = await axios.get('http://localhost:4000/random-book')
             if (res?.data?.title && res?.data?.author) {
-                dispatch(addBook(createBookWithID(res.data)))
+                dispatch(addBook(createBookWithID(res.data, 'API')))
             }
 
         } catch (error) {
